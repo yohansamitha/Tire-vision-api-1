@@ -1,0 +1,64 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /tirevision
+spring:
+  # main:
+  #   banner-mode: off
+  datasource:
+    url: jdbc:mysql://localhost:3306/tirevision
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: yohalearn00@gmail.com
+    password: iuiawefuo@1993
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+security:
+  allowed-credentials: true
+  allowed-origins:
+    - http://localhost:4200
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - POST
+  allowed-headers:
+    - Authorization
+    - origin
+    - Content-type
+    - Accept
+    - Accept-Control-Allow-Origin
+    - Accept-Control-Allow-Header
+    - Accept-Control-Request-Method
+    - X-Xsrf-Token
+  exposed-headers:
+    - X-Xsrf-Token
+
+application:
+  jwt:
+    secretKey: tireVision#123tireVision#123tireVision#123tireVision#123
+    tokenPrefix: "Bearer "
+    tokenExp: 86400000
