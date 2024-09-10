@@ -1,11 +1,11 @@
 package com.tire_vision_api_1.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tire_vision_api_1.utils.constant.SecurityConfigurationProperties;
 import com.tire_vision_api_1.filters.CustomUsernameAndPasswordAuthenticationFilter;
 import com.tire_vision_api_1.filters.JwtFilter;
 import com.tire_vision_api_1.services.user.UserService;
 import com.tire_vision_api_1.utils.constant.JWTConfig;
+import com.tire_vision_api_1.utils.constant.SecurityConfigurationProperties;
 import com.tire_vision_api_1.utils.functions.JwtUtil;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -57,6 +57,7 @@ public class WebSecurityConfiguration {
             "/api/v1/user/register",
             "/api/v1/user/forgot-password",
             "/api/v1/user/reset-password",
+            "/api/v1/guest/tire-check",
     };
 
     @Autowired

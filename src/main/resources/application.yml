@@ -62,3 +62,5 @@ application:
     secretKey: tireVision#123tireVision#123tireVision#123tireVision#123
     tokenPrefix: "Bearer "
     tokenExp: 86400000
+
+ml-url: http://127.0.0.1:5000/predict

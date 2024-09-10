@@ -10,4 +10,12 @@ public class CommonFunctions {
     public static String getStringImage(byte[] image) {
         return image == null ? "" : "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(image);
     }
+
+    public static byte[] getDecodedImage(String image) {
+        if (image != null && !image.isEmpty() && !image.isBlank()) {
+            return Base64.getDecoder().decode(image.split(",")[1]);
+        } else {
+            return new byte[0];
+        }
+    }
 }
