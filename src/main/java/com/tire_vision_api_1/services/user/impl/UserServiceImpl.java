@@ -75,6 +75,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public StandardResponse update(UserDTO userDTO) {
         StandardResponse standardResponse = new StandardResponse();
+        if (userDTO.getUserId() != null) {
+            Optional<User> userOptional = userRepository.findById(Long.valueOf(userDTO.getUserId()));
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                if (!userDTO.getFirstName().equals(user.getFirstName())) {
+                    user.setFirstName(userDTO.getFirstName());
+                }
+                if (!userDTO.getLastName().equals(user.getLastName())) {
+                    user.setLastName(userDTO.getLastName());
+                }
+
+                if (!userDTO.getUserAvatar().equals(CommonFunctions.getStringImage(user.getUserAvatar()))) {
+                    user.setUserAvatar(CommonFunctions.getDecodedImage(userDTO.getUserAvatar()));
+                }
+                userRepository.save(user);
+                standardResponse.setCode("200");
+                standardResponse.setMessage("User Data Updated Successfully");
+            } else {
+                standardResponse.setCode("401");
+                standardResponse.setMessage("No User Data Found For this User Id");
+            }
+        } else {
+            standardResponse.setCode("401");
+            standardResponse.setMessage("User Id Cannot be Null");
+        }
         return standardResponse;
     }
 

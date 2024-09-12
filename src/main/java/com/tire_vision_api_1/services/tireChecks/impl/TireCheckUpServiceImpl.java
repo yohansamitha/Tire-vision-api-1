@@ -239,6 +239,20 @@ public class TireCheckUpServiceImpl implements TireCheckUpService {
     }
 
     @Override
+    public StandardResponse getLastTireCheckForUserVehicle(String vehicleId, String userId) {
+        StandardResponse standardResponse = new StandardResponse();
+        if (userId != null && !userId.isEmpty() && !userId.isBlank()) {
+            List<TireCheckUpTableDTO> tireCheckUpTableDTOS = new ArrayList<>();
+            Pageable topThree = PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "registerTime"));
+            tireCheckUpTableDTOS = tireCheckUpsRepository.getLastTireCheckUps(Long.valueOf(userId), Long.valueOf(vehicleId), topThree).getContent();
+
+            KeyValueDTO<List<TireCheckUpTableDTO>> vehicleLastTireCheck = new KeyValueDTO<>("tirecheckslist", tireCheckUpTableDTOS);
+            standardResponse.setData(Collections.singletonList(vehicleLastTireCheck));
+        }
+        return standardResponse;
+    }
+
+    @Override
     public StandardResponse update(TireCheckUpDTO u) {
         return null;
     }

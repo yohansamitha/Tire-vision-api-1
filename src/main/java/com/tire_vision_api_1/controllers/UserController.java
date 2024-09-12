@@ -42,4 +42,16 @@ public class UserController {
         StandardResponse standardResponse = userService.resetPassword(email, verificationCode, newPassword);
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
+
+    @GetMapping(path = "/find", params = {"userId"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StandardResponse> findUserById(@RequestParam String userId) {
+        StandardResponse standardResponse = userService.findById(Long.valueOf(userId));
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StandardResponse> updateUser(@Validated(UserDTO.NameValidation.class) @RequestBody UserDTO userDTO) {
+        StandardResponse standardResponse = userService.update(userDTO);
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
+    }
 }

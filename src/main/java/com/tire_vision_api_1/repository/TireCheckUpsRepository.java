@@ -35,4 +35,12 @@ public interface TireCheckUpsRepository extends JpaRepository<TireCheckup, Long>
             "tc.registerTime DESC")
     ArrayList<TireCheckUpTableDTO> getAllTireCheckUps(@Param("userId") Long userId);
 
+    @Query("SELECT new com.tire_vision_api_1.dto.tire.TireCheckUpTableDTO(tc.id, tc.vehicle.vehicleId,tc.vehicle.brand,tc.vehicle.model, tc.vehicle.image, tc.user.userId," +
+            "tc.flResults, tc.frResults, tc.rlResults, tc.rrResults, tc.recommendation.description, tc.registerTime) " +
+            "FROM TireCheckup tc " +
+            "WHERE tc.user.userId = :userId AND tc.vehicle.vehicleId = :vehicleId " +
+            "ORDER BY " +
+            "tc.registerTime DESC")
+    Page<TireCheckUpTableDTO> getLastTireCheckUps(Long userId, Long vehicleId, Pageable topThree);
+
 }

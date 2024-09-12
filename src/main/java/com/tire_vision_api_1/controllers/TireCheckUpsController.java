@@ -36,4 +36,10 @@ public class TireCheckUpsController {
         return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/last-check", params = {"vehicleId", "userId"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StandardResponse> getLastTireCheckForUserVehicle(@RequestParam("vehicleId") String vehicleId,
+                                                                           @RequestParam("userId") String userId) {
+        StandardResponse standardResponse = tireCheckUpService.getLastTireCheckForUserVehicle(vehicleId, userId);
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
+    }
 }

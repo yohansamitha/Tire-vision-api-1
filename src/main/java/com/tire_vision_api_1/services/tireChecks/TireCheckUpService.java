@@ -11,4 +11,6 @@ import com.tire_vision_api_1.services.AbstractService;
 
 public interface TireCheckUpService extends AbstractService<TireCheckUpDTO, Long> {
     StandardResponse getTireCheckList(String option, String userId);
+
+    StandardResponse getLastTireCheckForUserVehicle(String vehicleId, String userId);
 }

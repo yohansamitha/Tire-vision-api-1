@@ -21,6 +21,8 @@ import java.util.List;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
+    boolean existsByRegistrationNumber(String vehicleNumber);
+
     @Query("SELECT new com.tire_vision_api_1.dto.vehicle.VehicleTableDTO(v.vehicleId, v.brand, v.model, v.year, v.image) " +
             "FROM Vehicle v " +
             "WHERE v.user.userId = :userId " +

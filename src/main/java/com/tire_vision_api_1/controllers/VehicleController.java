@@ -1,16 +1,14 @@
 package com.tire_vision_api_1.controllers;
 
 import com.tire_vision_api_1.dto.reponses.StandardResponse;
+import com.tire_vision_api_1.dto.vehicle.VehicleDTO;
 import com.tire_vision_api_1.services.vehicle.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*
  * @author Yohan Samitha
@@ -24,6 +22,12 @@ public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
+
+    @PostMapping(path = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StandardResponse> registerVehicle(@Validated @RequestBody VehicleDTO vehicleDTO) {
+        StandardResponse standardResponse = vehicleService.insert(vehicleDTO);
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
+    }
 
     @GetMapping(path = "/list", params = {"option", "userId"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StandardResponse> getVehicleList(@RequestParam("option") String option,

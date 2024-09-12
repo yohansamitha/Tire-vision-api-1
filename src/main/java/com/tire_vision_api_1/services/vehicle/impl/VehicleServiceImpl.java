@@ -7,6 +7,8 @@ import com.tire_vision_api_1.dto.vehicle.VehicleDTO;
 import com.tire_vision_api_1.dto.vehicle.VehicleTableDTO;
 import com.tire_vision_api_1.repository.VehicleRepository;
 import com.tire_vision_api_1.services.vehicle.VehicleService;
+import com.tire_vision_api_1.utils.functions.CommonFunctions;
+import com.tire_vision_api_1.utils.mapping.Vehicle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +36,17 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public StandardResponse insert(VehicleDTO vehicleDTO) {
         StandardResponse response = new StandardResponse();
+        if (!vehicleRepository.existsByRegistrationNumber(vehicleDTO.getRegistrationNumber())) {
+            Vehicle vehicle = this.mapper.map(vehicleDTO, Vehicle.class);
+            vehicle.setImage(CommonFunctions.getDecodedImage(vehicleDTO.getImage()));
+
+            vehicleRepository.save(vehicle);
+            response.setCode("200");
+            response.setMessage("Vehicle Registration Successfully!");
+        } else {
+            response.setCode("400");
+            response.setMessage("Something Went Wrong. Please Try Again!");
+        }
         return response;
     }
 
